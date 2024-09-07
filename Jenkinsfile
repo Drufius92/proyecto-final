@@ -5,24 +5,30 @@ pipeline {
             agent {
                 docker {
                     image 'node:20.11.1-alpine3.19'
+                    reuseNode true
                 }
             }
             stages {
-                stage('instalar dependencias'){
+                stage('instalar dependencias') {
                     steps {
                         sh 'npm install'
                     }
                 }
-                stage('ejecutar test'){
+                stage('ejecutar test') {
                     steps {
                         sh 'npm run test'
-                    } 
+                    }
                 }
-                stage('build'){
+                stage('build') {
                     steps {
                         sh 'npm run build'
                     }
                 }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'docker run -d --rm -p 3001:3001 backend-base-devops:latest'
             }
         }
     }
