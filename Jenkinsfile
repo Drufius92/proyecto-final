@@ -7,8 +7,19 @@ pipeline {
                     image 'node:20.11.1-alpine3.19'
                 }
             }
-            steps {
-                sh 'npm install'
+            stages{
+                stage('dependencias'){
+                    steps {
+                        sh 'npm install'
+                    }
+                }
+            }
+            stages{
+                stage('test'){
+                    steps {
+                        sh 'npm run test'
+                    }
+                }
             }
         }
     }
