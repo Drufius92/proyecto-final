@@ -28,9 +28,13 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker build -t backend-base-devops:latest .'
-                sh 'docker tag backend-base-devops:latest localhost:8082/backend-base-devops:latest'
-                sh 'docker push localhost:8082/backend-base-devops:latest'
+                script {
+                    docker.withRegistry('http://localhost:8082', 'nexus-key') {
+                        sh 'docker build -t backend-base-devops:latest .'
+                        sh 'docker tag backend-base-devops:latest localhost:8082/backend-base-devops:latest'
+                        sh 'docker push localhost:8082/backend-base-devops:latest'
+                    }
+                }
             }
         }
     }
