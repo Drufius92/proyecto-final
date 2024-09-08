@@ -32,7 +32,7 @@ pipeline {
                     agent {
                         docker {
                             image 'sonarsource/sonar-scanner-cli'
-                            arg '--newtwork="devops-infra_default"'
+                            arg '--network="devops-infra_default"'
                             reuseNode true
                         }
                     }
