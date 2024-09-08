@@ -38,8 +38,7 @@ pipeline {
                     }
                     steps {
                         withSonarQubeEnv('sonarqube') {
-                            sh 'sleep 10'  // Pausa de 10 segundos
-                            sh 'sonar-scanner -Dsonar.host.url=http://172.18.0.5:9000'
+                            sh 'sonar-scanner'
                         }
                     }
                 }
