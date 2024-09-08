@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d --rm -p 3001:3001 backend-base-devops:latest'
+                sh 'docker build -t backend-base-devops:latest .'
             }
         }
     }
