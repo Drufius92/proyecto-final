@@ -26,7 +26,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('delivery') {
             steps {
                 script {
                     docker.withRegistry('http://localhost:8082', 'nexus-key') {
@@ -35,6 +35,16 @@ pipeline {
                         sh "docker tag backend-base-devops:latest localhost:8082/backend-base-devops:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
                         sh "docker push localhost:8082/backend-base-devops:latest"
                         sh "docker push localhost:8082/backend-base-devops:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    docker.withRegistry('http://localhost:8082', 'nexus-key') {
+                        sh "docker compose pull"
+                        sh "docker compose up --force-recreate --build -d"
                     }
                 }
             }

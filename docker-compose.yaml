@@ -1,0 +1,6 @@
+name: backend-base
+services:
+  backend:
+    image: backend:latest
+    ports:
+      - "3001:3001"
