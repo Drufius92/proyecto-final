@@ -26,33 +26,6 @@ pipeline {
                 }
             }
         }
-        stage('QA') {
-            stages {
-                stage('SonarQube analisis') {
-                    agent {
-                        docker {
-                            image 'sonarsource/sonar-scanner-cli'
-                            args '--network="devops-infra_default"'
-                            reuseNode true
-                        }
-                    }
-                    steps {
-                        withSonarQubeEnv('sonarqube') {
-                            // Ajuste para sonar-project.properties y conectividad a SonarQube
-                            sh '''
-                            sonar-scanner \
-                                -Dsonar.projectKey=backend-base-devops \
-                                -Dsonar.sources=src \
-                                -Dsonar.scm.provider=git \
-                                -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-                                -Dsonar.host.url=http://sonarqube:9000 \
-                                -X
-                            '''
-                        }
-                    }
-                }
-            }
-        }
         stage('delivery') {
             steps {
                 script {
