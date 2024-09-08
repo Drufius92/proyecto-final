@@ -45,12 +45,12 @@ pipeline {
                                 -Dsonar.sources=src \
                                 -Dsonar.scm.provider=git \
                                 -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-                                -Dsonar.host.url=http://sonarqube:9000
+                                -Dsonar.host.url=http://sonarqube:9000 \
+                                -X
                             '''
                         }
                     }
                 }
-                
             }
         }
         stage('delivery') {
