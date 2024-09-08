@@ -38,7 +38,15 @@ pipeline {
                     }
                     steps {
                         withSonarQubeEnv('sonarqube') {
-                            sh 'sonar-scanner'
+                            // Ajuste para sonar-project.properties y conectividad a SonarQube
+                            sh '''
+                            sonar-scanner \
+                                -Dsonar.projectKey=backend-base-devops \
+                                -Dsonar.sources=src \
+                                -Dsonar.scm.provider=git \
+                                -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+                                -Dsonar.host.url=http://sonarqube:9000
+                            '''
                         }
                     }
                 }
