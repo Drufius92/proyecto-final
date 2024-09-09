@@ -42,6 +42,14 @@ pipeline {
                         }
                     }
                 }
+                stage('Quality Gate')
+                {
+                    steps {
+                        timeout(time: 25, unit: 'SECONDS') {
+                            waitForQualityGate abortPipeline: true
+                        }
+                    }
+                }
             }
         }
         stage('delivery') {
@@ -61,7 +69,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('http://localhost:8082', 'nexus-key') {
-                        sh "docker compose up --force-recreate --build -d"
+                        sh "docker-compose up --force-recreate --build -d"
                     }
                 }
             }
