@@ -75,7 +75,7 @@ pipeline {
                         sh 'docker-compose pull'
                         sh "docker-compose up --force-recreate --build -d"
                     }
-                    //sh "kubectl set image deployment backend-base-devops-deployment backend-base-devops=localhost:8082/backend-base-devops:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+                    sh "kubectl set image deployment backend-base-devops-deployment backend-base-devops=localhost:8082/backend-base-devops:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
                 }
             }
         }
